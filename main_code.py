@@ -55,9 +55,10 @@ def percent_identity(seq1, seq2):
 
 def percent_difference(seq1, seq2):
     """
-    Return the percentage difference between sequences
+    Return the percentage difference between sequences by subtracting percent identity from 100.
     """
-    return
+    return 100 - percent_identity(seq1, seq2)
+
 def find_closest(mystery_seq, database):
     """
     Find the closest breed match from the database using the myserty sequence.
