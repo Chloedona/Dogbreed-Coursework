@@ -1,11 +1,11 @@
 #IMPORTS#
-import matplotlib.pylot as plt
+import matplotlib.pyplot as plt
 
 
 
 
 #I/O FUNCTIONS#
-def read_fasta(file)
+def read_fasta(file):
     """
     Reads a FASTA file and returns a dictionary
     with header as key and sequence as a value
@@ -34,7 +34,8 @@ def read_fasta(file)
 #SEQUENCE ANALYSIS#
 def percent_identity(seq1, seq2):
     """
-    Calculate the percent identity between two sequences
+    Calculates the percent identity between two sequences. Takes into consideration different lenths of sequences
+    by using None for mising bases. Returns the percentage of matching bases divided by the length of the longer sequence.
     """
     s1 = str(seq1).upper()
     s2 = str(seq2).upper()
@@ -45,8 +46,13 @@ def percent_identity(seq1, seq2):
     
     matches = 0
     for i in range (max_len):
+        base1 = s1[i] if i < len(s1) else None
+        base2 = s2[i] if i < len(s2) else None
+        if base1 == base2:
+            matches += 1
         
-    return
+    return (matches / max_len) * 100
+
 def percent_difference(seq1, seq2):
     """
     Return the percentage difference between sequences
