@@ -36,6 +36,16 @@ def percent_identity(seq1, seq2):
     """
     Calculate the percent identity between two sequences
     """
+    s1 = str(seq1).upper()
+    s2 = str(seq2).upper()
+    max_len = max(len(s1), len(s2))
+
+    if max_len == 0:
+        return 0.0
+    
+    matches = 0
+    for i in range (max_len):
+        
     return
 def percent_difference(seq1, seq2):
     """
