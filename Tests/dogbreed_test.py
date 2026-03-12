@@ -6,7 +6,9 @@ import main_code
 
 class TestDogBreedAnalysis(unittest.TestCase):
     def setUp(self):
-        self.database = main_code.parse_fasta('dog_breed_database.fasta')
+        project_root = os.path.dirname(os.path.dirname(__file__))
+        database_path = os.path.join(project_root, 'Data', 'dog_breeds.fa')
+        self.database = main_code.read_fasta(database_path)
         self.mystery_seq = 'AGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC'
 
     def test_percent_identity(self):
