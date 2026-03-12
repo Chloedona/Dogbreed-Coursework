@@ -24,3 +24,6 @@ class TestDogBreedAnalysis(unittest.TestCase):
         expected_difference = 25.0
         self.assertAlmostEqual(main_code.percent_difference(seq1, seq2), expected_difference)
         print("[PASS] percent_difference returned expected value (25%)")
+    
+    def test_find_closest(self):
+        

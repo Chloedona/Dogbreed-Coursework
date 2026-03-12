@@ -55,16 +55,24 @@ def percent_identity(seq1, seq2):
 
 def percent_difference(seq1, seq2):
     """
-    Return the percentage difference between sequences by subtracting percent identity from 100.
+    Returns the percentage difference between sequences by subtracting percent identity from 100.
     """
     return 100 - percent_identity(seq1, seq2)
 
 def find_closest(mystery_seq, database):
     """
-    Find the closest breed match from the database using the myserty sequence.
-    Return the breed name and similarity.
+    Finds the closest breed match from the database using the mystery sequence
+    Returns the breed name and similarity.
     """
-    return 
+    best_breed = None
+    best_similarity = -1
+
+    for breed, seq in database.items():
+        similarity = percent_identity(mystery_seq, seq)
+        if similarity > best_similarity:
+            best_similarity = similarity
+            best_breed = breed
+    return best_breed, best_similarity
 
 #STATISTICS#
 def p_value():
