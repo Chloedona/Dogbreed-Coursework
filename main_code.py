@@ -1,8 +1,11 @@
 #IMPORTS#
+import re
+
 import matplotlib.pyplot as plt
-
-
-
+import os
+from Bio import Phylo
+from Bio.Phylo.TreeConstruction import DistanceTreeConstructor, DistanceMatrix
+import numpy as np
 
 #I/O FUNCTIONS#
 def read_fasta(file):
@@ -30,6 +33,16 @@ def read_fasta(file):
             sequences[name] = ''.join(seq)
 
     return sequences
+
+def breed_name(header):
+    """
+    Extracts breed name from FASTA header e.g. [breed = boxer]
+    Uses re from the standard library to search for the breed name and returns it.
+    """
+    match = re.search(r'\[breed\s*=\s*([^\]]+)\]', header)
+    if match:
+        return match.group(1).strip()
+
 
 #SEQUENCE ANALYSIS#
 def percent_identity(seq1, seq2):
@@ -75,8 +88,22 @@ def find_closest(mystery_seq, database):
     return best_breed, best_similarity
 
 #STATISTICS#
-def p_value():
-    return
+def p_values(scores):
+    """
+    Calculates the p-value for the similarity between the mystery sequence and the closest breed match.
+    """
+    identities = list(scores.values())
+    num_breeds = len(identities)
+
+    if num_breeds == 0:
+        return {}
+    
+    pvals = {}
+    for breed, score in scores.items():
+        num_same_or_higher = sum(1 for s in identities if s >= score)
+        pvals[breed] = num_same_or_higher / num_breeds
+
+    return pvals
 
 #PHLOGENY#
 def build_tree():
@@ -93,8 +120,17 @@ def plot_tree():
 
 
 #MAIN PROGRAM#
+"""
+This is the main program that runs the dog breed analysis. The program will read the database and mystery sequence 
+and make a new directory called "Results" saving a report and the tree image to display to the user.
+
+
+"""
 if __name__ == "__main__":
 
+    output_dir = "Results"
+    os.makedirs(output_dir, exist_ok=True)
+    
     database = read_fasta("dog_breeds.fa")
     mystery = read_fasta("mystery.fa")
 

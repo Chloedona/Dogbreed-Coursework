@@ -26,4 +26,3 @@ class TestDogBreedAnalysis(unittest.TestCase):
         print("[PASS] percent_difference returned expected value (25%)")
     
     def test_find_closest(self):
-        
