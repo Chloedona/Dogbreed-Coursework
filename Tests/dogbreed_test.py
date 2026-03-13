@@ -11,6 +11,13 @@ class TestDogBreedAnalysis(unittest.TestCase):
         self.database = main_code.read_fasta(database_path)
         self.mystery_seq = 'AGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGCTAGC'
 
+    def test_breed_name(self):
+        header = " >seq1 [breed = boxer]"
+        expected_breed = "boxer"
+        self.assertEqual(main_code.breed_name(header), expected_breed)
+        print("[PASS] breed_name extracted breed name correctly")
+
+
     def test_percent_identity(self):
         seq1 = 'AGCTAGCT'
         seq2 = 'AGCTTGCA'
@@ -26,3 +33,14 @@ class TestDogBreedAnalysis(unittest.TestCase):
         print("[PASS] percent_difference returned expected value (25%)")
     
     def test_find_closest(self):
+
+    def test_p_values(self):
+        scores = {'a': 90, 'b': 80, 'c': 90}
+        pvals = main_code.p_values(scores)
+
+        self.assertEqual(pvals['a'], 2/3)
+        self.assertEqual(pvals['b'], 1.0)
+        self.assertEqual(pvals['c'], 2/3)
+
+    
+
