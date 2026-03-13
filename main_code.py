@@ -106,18 +106,52 @@ def p_values(scores):
     return pvals
 
 #PHLOGENY#
-def build_tree():
+def build_tree(sequences):
     """
     Construct phylogenetic tree from mystery DNA and database
     """
+    names = list(sequences.keys())
+    matrix = []
 
-def plot_tree():
+    for i, name1 in enumerate(names):
+        row = []
+        for j in range(i + 1):
+            name2 = names[j]
+            if i == j:
+                row.append(0.0)
+            else:
+                dist = percent_difference(sequences[name1], sequences[namej] / 100)
+                row.append(dist)
+        matrix.append(row)
+
+    distance_matrix = DistanceMatrix(names, matrix)
+    constructor = DistanceTreeConstructor()
+    return constructor.nj(distance_matrix)
+
+def plot_tree_image(tree, output_dir):
     """
     Displays the tree to user
     """
+    image_path = os.path.join(output_dir, "phylogenetic_tree.png")
 
+    phylo.draw(tree, do_show=False)
+    plt.savefig(image_path, dpi=300)
+    plt.close()
 
+    return image_path
 
+def write_report(output_dir, best_breed, best_similarity, pval, tree_image_path):
+    """
+    Writes a report summarising the results of the analysis and saves it to the output directory.
+    """
+    report_path = os.path.join(output_dir, "report.txt")
+    with open(report_path, 'w') as out:
+        out.write("\nChloe's Dog Breed Analysis Report\n")
+        out.write(f"Closest breed match: {best_breed}\n")
+        out.write(f"Percent Identity: {best_similarity:.2f}%\n")
+        out.write(f"P-value (closest breed): {pval:.4f}\n")
+        out.write("\nPhylogenetic tree outputs:\n")
+        out.write(f"Phylogenetic tree image saved at: {tree_image_path}\n")
 
 #MAIN PROGRAM#
 """
