@@ -33,6 +33,11 @@ class TestDogBreedAnalysis(unittest.TestCase):
         print("[PASS] percent_difference returned expected value (25%)")
     
     def test_find_closest(self):
+        best_breed, best_similarity = main_code.find_closest(self.mystery_seq, self.database)
+        self.assertIsNotNone(best_breed)
+        self.assertGreaterEqual(best_similarity, 0.0)
+        self.assertLessEqual(best_similarity, 100.0)
+        print("[PASS] find_closest returned a valid breed and similarity score")
 
     def test_p_values(self):
         scores = {'a': 90, 'b': 80, 'c': 90}
