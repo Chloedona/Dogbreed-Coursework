@@ -134,9 +134,24 @@ def plot_tree_image(tree, output_dir):
     """
     image_path = os.path.join(output_dir, "phylogenetic_tree.png")
 
-    Phylo.draw(tree, do_show=False)
-    plt.savefig(image_path, dpi=300)
-    plt.close()
+    # Scale figure height with the number of tips to reduce label overlap.
+    num_tips = tree.count_terminals()
+    fig_height = max(12, num_tips * 0.35)
+    fig, ax = plt.subplots(figsize=(24, fig_height))
+
+    # Sorting clades to make the tree easier to visualise.
+    tree.ladderize()
+    Phylo.draw(tree, axes=ax, do_show=False, show_confidence=False)
+
+    label_fontsize = 6 if num_tips > 80 else 8
+    for text in ax.texts:
+        text.set_fontsize(label_fontsize)
+
+    # Adding title and adjusting layout to prevent overlap.
+    ax.set_title("Phylogenetic Tree", fontsize=12, pad=12)
+    plt.tight_layout()
+    plt.savefig(image_path, dpi=300, bbox_inches='tight')
+    plt.close(fig)
 
     return image_path
 
