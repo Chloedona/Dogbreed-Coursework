@@ -189,6 +189,7 @@ if __name__ == "__main__":
 
     print("Finding closest breed match...")
     best_breed, best_similarity = find_closest(mystery_seq, database)
+    best_breed_name = breed_name(best_breed) or best_breed
 
     all_results = []
     observed_scores = {}
@@ -209,7 +210,7 @@ if __name__ == "__main__":
 
     print("Writing report...")
     report_path = os.path.join(output_dir, "report.txt")
-    write_report(output_dir, best_breed, best_similarity, pvals[best_breed], tree_image_path)
+    write_report(output_dir, best_breed_name, best_similarity, pvals[best_breed], tree_image_path)
 
     print(f"Analysis complete. Report saved at: {report_path}")
     
