@@ -120,7 +120,7 @@ def build_tree(sequences):
             if i == j:
                 row.append(0.0)
             else:
-                dist = percent_difference(sequences[name1], sequences[namej] / 100)
+                dist = percent_difference(sequences[name1], sequences[name2]) / 100
                 row.append(dist)
         matrix.append(row)
 
@@ -134,7 +134,7 @@ def plot_tree_image(tree, output_dir):
     """
     image_path = os.path.join(output_dir, "phylogenetic_tree.png")
 
-    phylo.draw(tree, do_show=False)
+    Phylo.draw(tree, do_show=False)
     plt.savefig(image_path, dpi=300)
     plt.close()
 
@@ -165,8 +165,8 @@ if __name__ == "__main__":
     output_dir = "Results"
     os.makedirs(output_dir, exist_ok=True)
     
-    database = read_fasta("dog_breeds.fa")
-    mystery = read_fasta("mystery.fa")
+    database = read_fasta("Data/dog_breeds.fa")
+    mystery = read_fasta("Data/mystery.fa")
 
     mystery_name = list(mystery.keys())[0]
     mystery_seq = mystery[mystery_name]
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     best_breed, best_similarity = find_closest(mystery_seq, database)
 
     all_results = []
-    observed_scores = []
+    observed_scores = {}
 
     for db_breed, db_seq in database.items():
         identity = percent_identity(mystery_seq, db_seq)

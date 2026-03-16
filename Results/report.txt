@@ -1,0 +1,8 @@
+
+Chloe's Dog Breed Analysis Report
+Closest breed match: gb|AY656744.1| [location=mitochondrion] [completeness=complete] [topology=circular] [organism=Canis lupus familiaris] [isolate=1] [sub_species=familiaris] [breed=English Springer Spaniel] [gcode=2] Canis lupus familiaris isolate 1 breed English Springer Spaniel mitochondrion, complete genome.
+Percent Identity: 99.86%
+P-value (closest breed): 0.0101
+
+Phylogenetic tree outputs:
+Phylogenetic tree image saved at: Results\phylogenetic_tree.png
