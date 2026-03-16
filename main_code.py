@@ -168,4 +168,35 @@ if __name__ == "__main__":
     database = read_fasta("dog_breeds.fa")
     mystery = read_fasta("mystery.fa")
 
+    mystery_name = list(mystery.keys())[0]
+    mystery_seq = mystery[mystery_name]
+    breed_display = {header: breed_name(header) for header in database}
+
+    print("Finding closest breed match...")
+    best_breed, best_similarity = find_closest(mystery_seq, database)
+
+    all_results = []
+    observed_scores = []
+
+    for db_breed, db_seq in database.items():
+        identity = percent_identity(mystery_seq, db_seq)
+        all_results.append((db_breed, identity))
+        observed_scores[db_breed] = identity
+
+    print("Calculating p-values...")
+    pvals = p_values(observed_scores)
+
+    print("Building phylogenetic tree...")
+    sequences_for_tree = {breed_display[header]: seq for header, seq in database.items()}
+    sequences_for_tree[mystery_name] = mystery_seq
+    tree = build_tree(sequences_for_tree)
+    tree_image_path = plot_tree_image(tree, output_dir)
+
+    print("Writing report...")
+    report_path = os.path.join(output_dir, "report.txt")
+    write_report(output_dir, best_breed, best_similarity, pvals[best_breed], tree_image_path)
+
+    print(f"Analysis complete. Report saved at: {report_path}")
+    
+
 
