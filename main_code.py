@@ -143,12 +143,12 @@ def plot_tree_image(tree, output_dir):
     tree.ladderize()
     Phylo.draw(tree, axes=ax, do_show=False, show_confidence=False)
 
-    label_fontsize = 6 if num_tips > 80 else 8
+    label_fontsize = 10 if num_tips > 80 else 12
     for text in ax.texts:
         text.set_fontsize(label_fontsize)
 
     # Adding title and adjusting layout to prevent overlap.
-    ax.set_title("Phylogenetic Tree", fontsize=12, pad=12)
+    ax.set_title("Phylogenetic Tree", fontsize=24, pad=12)
     plt.tight_layout()
     plt.savefig(image_path, dpi=300, bbox_inches='tight')
     plt.close(fig)
