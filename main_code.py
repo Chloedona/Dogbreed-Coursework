@@ -175,18 +175,25 @@ def plot_tree_image(tree, output_dir):
 
     return image_path
 
-def write_report(output_dir, best_breed, best_similarity, pval, tree_image_path):
+def write_report(output_dir, best_breed, best_similarity, pval, tree_image_path, top_matches):
     """
     Writes a report summarising the results of the analysis and saves it to the output directory.
     """
     # Define the path to save the report in the output directory and write the report with the closest breed match, percent identity,
-    #  p-value and tree image path.
+    # p-value, top 10 closest matches, and tree image path.
     report_path = os.path.join(output_dir, "report.txt")
     with open(report_path, 'w') as out:
         out.write("\nChloe's Dog Breed Analysis Report\n")
         out.write(f"Closest breed match: {best_breed}\n")
         out.write(f"Percent Identity: {best_similarity:.2f}%\n")
         out.write(f"P-value (closest breed): {pval:.4f}\n")
+
+        out.write("\nTop 10 closest matches across database:\n")
+        out.write("Rank | Breed | Percent Identity | P-value\n")
+        out.write("-----|-------|------------------|--------\n")
+        for rank, (breed, identity, match_pval) in enumerate(top_matches, start=1):
+            out.write(f"{rank} | {breed} | {identity:.2f}% | {match_pval:.4f}\n")
+
         out.write("\nPhylogenetic tree outputs:\n")
         out.write(f"Phylogenetic tree image saved at: {tree_image_path}\n")
 
@@ -227,6 +234,16 @@ if __name__ == "__main__":
 
     print("Calculating p-values...")
     pvals = p_values(observed_scores)
+
+    sorted_matches = sorted(
+        observed_scores.items(),
+        key=lambda item: item[1],
+        reverse=True
+    )
+    top_matches = [
+        (breed_name(header) or header, identity, pvals[header])
+        for header, identity in sorted_matches[:10]
+    ]
 # Build the phylogenetic tree using the sequences from the database and the mystery sequence
 # and save the tree image to the output directory.
     print("Building phylogenetic tree...")
@@ -237,7 +254,7 @@ if __name__ == "__main__":
 # Output the report to the results folder with the closest breed match, percent identity, p-value and tree image path.
     print("Writing report...")
     report_path = os.path.join(output_dir, "report.txt")
-    write_report(output_dir, best_breed_name, best_similarity, pvals[best_breed], tree_image_path)
+    write_report(output_dir, best_breed_name, best_similarity, pvals[best_breed], tree_image_path, top_matches)
 # Display message to the user that analysis is complete.
     print(f"Analysis complete. Report saved at: {report_path}")
     

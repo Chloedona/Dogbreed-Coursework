@@ -4,5 +4,19 @@ Closest breed match: English Springer Spaniel
 Percent Identity: 99.86%
 P-value (closest breed): 0.0101
 
+Top 10 closest matches across database:
+Rank | Breed | Percent Identity | P-value
+-----|-------|------------------|--------
+1 | English Springer Spaniel | 99.86% | 0.0101
+2 | Portuguese Warren dog, small size, weired hair | 99.84% | 0.0202
+3 | Sloughi | 99.83% | 0.0404
+4 | Mixed breed | 99.83% | 0.0404
+5 | Mixed breed | 99.83% | 0.0606
+6 | Mixed breed | 99.83% | 0.0606
+7 | Portuguese Sheepdog | 99.82% | 0.1111
+8 | Portuguese Sheepdog | 99.82% | 0.1111
+9 | Portuguese Warren dog, medium size, weired hair | 99.82% | 0.1111
+10 | Mixed breed | 99.82% | 0.1111
+
 Phylogenetic tree outputs:
 Phylogenetic tree image saved at: Results\phylogenetic_tree.png
