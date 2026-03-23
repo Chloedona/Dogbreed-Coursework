@@ -10,5 +10,12 @@ Identify the most similar sequence
 Stretch goal 1: Probabilities across database, p-value 
 Atretch goal 2: reconstructed phylogeny
 
+There are multiple folders within this repository as follows:
+- Data provides the input data (mystery sequence and database for sequence analysis)
+- Results. This is where the output of the code will save as 'report.txt' and 'pyhylogenetic_tree.png'
+- Tests. This is internal testing I used for testing my code
+- Main_code.py is outside of any folder, but is the main code used for running the analysis pipeline.
+- Each subfolder had a readme file to explain the contents of each folder.
+
 This code uses packages:
 BioPython for sequence analysis
